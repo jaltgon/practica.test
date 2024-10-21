@@ -13,11 +13,11 @@ Vagrant.configure("2") do |config|
       apt-get install -y bind9 dnsutils
     SHELL
     master.vm.provision "shell", name: "master-dns", inline: <<-SHELL
-    cp -v /vagrant/named /etc/default/
-    cp -v 7vagrant/named.conf.options /etc/bind
-    cp -v /vagrant/named.conf.local /etc/bind
-    cp -v /vagrant/dns.sri /var/lib/bind
-    systemctl restart named
+        cp -v /vagrant/named /etc/default
+        cp -v /vagrant/named.conf.options /etc/bind
+        cp -v /vagrant/named.conf.local /etc/bind
+        cp -v /vagrant/dns.sri /var/lib/bind
+     sudo systemctl restart named
     SHELL
   end
 
@@ -29,9 +29,9 @@ Vagrant.configure("2") do |config|
       apt-get install -y bind9 dnsutils
     SHELL
     slave.vm.provision "shell", name: "slave-dns", inline: <<-SHELL
-      cp -v /vagrant/named /etc/default/
-      cp -v /vagrant/files/slave/named.conf.local.slave /etc/bind/
-      systemctl restart named
+      cp -v /vagrant/named.conf.slave /etc/default/named.conf
+     cp -v /vagrant/named.conf.local.slave /etc/bind/named.conf.local
+     cp -v /vagrant/named.conf.options.slave /etc/bind/named.conf.options
     SHELL
   end
   
